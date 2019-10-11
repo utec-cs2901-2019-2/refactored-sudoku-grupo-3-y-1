@@ -7,7 +7,7 @@ public class Sudoku {
     private int [][]matrix;
     private int [][]changedMatrix;
     private int emptySpaces;
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
 
     public Sudoku(int [][] matrix){
         this.matrix=matrix;
@@ -15,28 +15,27 @@ public class Sudoku {
         changeMatrix();
     }
 
+    private void getInput(){
+        int row, column;  
+        System.out.println("Ingrese fila :");
+        row = input.nextInt();
+
+        System.out.println("Ingrese columna: ");
+        column = input.nextInt();
+
+        insertValue(row, column);
+    }
     public void startGame(){
 
-        int i = 0;
-        showMatrix(changedMatrix);
-
-        while(i<this.emptySpaces) {
-            int row,column;
-            System.out.println("Ingrese fila :");
-            row = input.nextInt();
-            System.out.println("Ingrese columna: ");
-            column = input.nextInt();
-            insertValue(row, column);
+        for(int i = 0;i < emptySpaces;i++){
             showMatrix(changedMatrix);
-            i = i + 1;
+            getInput();
         }
-        if(verify()) {
+
+        if(verify()) 
             System.out.println("GANASTE FELICITACIONES");
-        } else {
+         else
             System.out.println("FAIL !!");
-        }
-
-
     }
 
     public void changeMatrix(){
