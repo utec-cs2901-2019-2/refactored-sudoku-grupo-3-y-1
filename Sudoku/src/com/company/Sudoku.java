@@ -6,10 +6,11 @@ import java.util.Scanner;
 public class Sudoku {
     private int [][]matrix;
     private int [][]changedMatrix;
-    private final int emptySpaces = 51;
+    private int emptySpaces = 51;
     private Scanner input = new Scanner(System.in);
 
-    public Sudoku(int [][] matrix){
+    public Sudoku(int[][] matrix) {
+        System.out.println("Sudoku started.");
         this.matrix=matrix;
         changeMatrix();
     }
@@ -26,8 +27,8 @@ public class Sudoku {
     }
     
     public boolean finished() {
-        for (int row = 0; row < 9; ++row) {
-            for (int col = 0; col < 9; ++col) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
                 if (this.changedMatrix[row][col] == 0) {
                     return false;
                 }
@@ -36,8 +37,8 @@ public class Sudoku {
         return true;
     }
 
-    public void startGame(){
-
+    public void startGame() {
+        
         while (!finished())
         {
             showMatrix(this.changedMatrix);
@@ -65,6 +66,7 @@ public class Sudoku {
 
             if (!this.isEmpty(randomRow, randomCol)) {
                 this.changedMatrix[randomRow][randomCol] = 0;
+                this.emptySpaces--;
             }
         }
     }
