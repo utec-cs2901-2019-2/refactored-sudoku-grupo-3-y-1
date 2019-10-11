@@ -6,51 +6,67 @@ import java.util.Scanner;
 public class Sudoku {
     private int [][]matrix;
     private int [][]changedMatrix;
-    private int emptySpaces;
-    Scanner input = new Scanner(System.in);
+    private int emptySpaces = 51;
+    private Scanner input = new Scanner(System.in);
 
-    public Sudoku(int [][] matrix){
+    public Sudoku(int[][] matrix) {
+        System.out.println("Sudoku started.");
         this.matrix=matrix;
-        this.emptySpaces=51;
         changeMatrix();
     }
 
-    public void startGame(){
+    private void getInput(){
+        int row, column;  
+        System.out.println("Ingrese fila :");
+        row = input.nextInt();
 
-        int i = 0;
-        showMatrix(changedMatrix);
+        System.out.println("Ingrese columna: ");
+        column = input.nextInt();
 
-        while(i<this.emptySpaces) {
-            int row,column;
-            System.out.println("Ingrese fila :");
-            row = input.nextInt();
-            System.out.println("Ingrese columna: ");
-            column = input.nextInt();
-            insertValue(row, column);
-            showMatrix(changedMatrix);
-            i = i + 1;
+        insertValue(row, column);
+    }
+    
+    public boolean finished() {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (this.changedMatrix[row][col] == 0) {
+                    return false;
+                }
+            }
         }
-        if(verify()) {
-            System.out.println("GANASTE FELICITACIONES");
-        } else {
-            System.out.println("FAIL !!");
-        }
-
-
+        return true;
     }
 
-    public void changeMatrix(){
+    public void startGame() {
+        
+        while (!finished())
+        {
+            showMatrix(this.changedMatrix);
+            getInput();
+        }
+
+        if(verify()) 
+            System.out.println("GANASTE FELICITACIONES");
+         else
+            System.out.println("FAIL !!");
+    }
+
+    public boolean isEmpty(int row, int col)
+    {
+        return (this.changedMatrix[row][col] == 0);
+    }
+
+    public void changeMatrix() {
         this.changedMatrix = this.matrix;
         Random random = new Random();
-        int i =0;
-        while(i<this.emptySpaces) {
-            i=i+1;
-            int randomNum1 = random.nextInt((8- 1) + 1) ;
-            int randomNum2 = random.nextInt((8 - 1) + 1) ;
-            if (this.changedMatrix[randomNum1][randomNum2]==0){
-                i=i-1;
-            }else{
-                this.changedMatrix[randomNum1][randomNum2]=0;
+
+        while (this.emptySpaces > 0) {
+            int randomRow = random.nextInt(9);
+            int randomCol = random.nextInt(9);
+
+            if (!this.isEmpty(randomRow, randomCol)) {
+                this.changedMatrix[randomRow][randomCol] = 0;
+                this.emptySpaces--;
             }
         }
     }
