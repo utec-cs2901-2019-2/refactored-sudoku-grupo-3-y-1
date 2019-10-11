@@ -6,12 +6,11 @@ import java.util.Scanner;
 public class Sudoku {
     private int [][]matrix;
     private int [][]changedMatrix;
-    private int emptySpaces;
+    private final int emptySpaces = 51;
     private Scanner input = new Scanner(System.in);
 
     public Sudoku(int [][] matrix){
         this.matrix=matrix;
-        this.emptySpaces=51;
         changeMatrix();
     }
 
