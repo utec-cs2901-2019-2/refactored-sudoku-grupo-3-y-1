@@ -25,10 +25,23 @@ public class Sudoku {
 
         insertValue(row, column);
     }
+    
+    public boolean finished() {
+        for (int row = 0; row < 9; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                if (this.changedMatrix[row][col] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public void startGame(){
 
-        for(int i = 0;i < emptySpaces;i++){
-            showMatrix(changedMatrix);
+        while (!finished())
+        {
+            showMatrix(this.changedMatrix);
             getInput();
         }
 
