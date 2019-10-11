@@ -39,18 +39,21 @@ public class Sudoku {
 
     }
 
-    public void changeMatrix(){
+    public boolean isEmpty(int row, int col)
+    {
+        return (this.changedMatrix[row][col] == 0);
+    }
+
+    public void changeMatrix() {
         this.changedMatrix = this.matrix;
         Random random = new Random();
-        int i =0;
-        while(i<this.emptySpaces) {
-            i=i+1;
-            int randomNum1 = random.nextInt((8- 1) + 1) ;
-            int randomNum2 = random.nextInt((8 - 1) + 1) ;
-            if (this.changedMatrix[randomNum1][randomNum2]==0){
-                i=i-1;
-            }else{
-                this.changedMatrix[randomNum1][randomNum2]=0;
+
+        while (this.emptySpaces > 0) {
+            int randomRow = random.nextInt(9);
+            int randomCol = random.nextInt(9);
+
+            if (!this.isEmpty(randomRow, randomCol)) {
+                this.changedMatrix[randomRow][randomCol] = 0;
             }
         }
     }
