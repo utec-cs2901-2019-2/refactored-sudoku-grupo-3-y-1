@@ -64,10 +64,14 @@ public class Sudoku {
         }
     }
 
+	public boolean isDifferent(int i, int j){
+		return this.changedMatrix[i][j] != this.matrix[i][j];
+	}
+
    public boolean verify(){
-        for(int i  = 0 ; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if (this.changedMatrix[i][j] != this.matrix[i][j]) {
+        for(int i  = 0 ; i < matrix.length; i++) {
+            for(int j = 0; j < matrix[i].length; j++) {
+                if (isDifferent(i,j)) {
                     return false;
                 }
             }
